@@ -1,0 +1,109 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\ProvidesPackage{beamercolorthemeulund}
+\usecolortheme{default}
+\mode<presentation>
+
+
+%%%%%% Options
+% enumeration itemmarks
+\newif\ifulund@blackenumeratenumber\ulund@blackenumeratenumbertrue
+\DeclareOptionBeamer{blackenumeratenumber}[true]{\csname ulund@blackenumeratenumber#1\endcsname}
+% itemize itemmarks
+\newif\ifulund@blackitemmark\ulund@blackitemmarkfalse
+\DeclareOptionBeamer{blackitemmark}[true]{\csname ulund@blackitemmark#1\endcsname}
+
+
+\ProcessOptionsBeamer
+
+
+%%%% Color definitions
+% Definition of LU colours
+\definecolor{lundbronze}{RGB}{156,97,20}%% Lejonbrons
+\definecolor{lunddarkblue}{RGB}{0,0,128}% LU blue
+%% Title image colors
+\definecolor{lundtitlered}{cmyk}{0.02,0.26,0.08,0}
+\definecolor{lundtitleblue}{cmyk}{0.28,0.05,0.06,0}
+\definecolor{lundtitlegreen}{cmyk}{0.35,0.04,0.27,0}
+\definecolor{lundtitlegray}{cmyk}{0.06,0.07,0.10,0}
+\definecolor{lundtitledarkgray}{cmyk}{0.23,0.21,0.24,0}
+%% Backwards compatibility
+\definecolor{lundorange}{RGB}{233,131,0}
+\definecolor{lundred}{RGB}{152,30,50}
+\definecolor{lundlightgray}{RGB}{203,199,191}
+\definecolor{lundgray}{RGB}{146,139,129}
+\definecolor{lundlightblue}{RGB}{161,198,207}
+\definecolor{lundgreen}{RGB}{85,118,48}
+\definecolor{lundlightgreen}{RGB}{199,210,138}
+
+
+%% Accent colours
+\definecolor{LUPink}{RGB}{233,196,199}
+\definecolor{LUGreen}{RGB}{173,202,184}
+\definecolor{LULBlue}{RGB}{185,211,220}
+\definecolor{LUIvory}{RGB}{214,210,196}
+
+%%%% Set some color schemes
+% Title page
+\setbeamercolor*{title page header}{fg=lundbronze}
+\setbeamercolor*{author}{fg=lundbronze}
+% Frame titles
+
+% Alerts
+\setbeamercolor{alerted text}{fg=lundred}
+
+%%%%%%%%%%%%%%%%%%%%%% Itemize and enumerate
+% Itemize item color
+\setbeamercolor*{itemize item}{fg=lundbronze}
+\setbeamercolor*{itemize subitem}{fg=lundbronze}
+\setbeamercolor*{itemize subsubitem}{fg=lundbronze}
+\ifulund@blackitemmark
+  \setbeamercolor*{itemize item}{fg=black}
+  \setbeamercolor*{itemize subitem}{fg=black}
+  \setbeamercolor*{itemize subsubitem}{fg=black}
+\fi
+% enumerate number color
+\setbeamercolor*{enumerate item}{fg=lundbronze}
+\setbeamercolor*{enumerate subitem}{fg=lundbronze}
+\setbeamercolor*{enumerate subsubitem}{fg=lundbronze}
+\ifulund@blackenumeratenumber
+  \setbeamercolor*{enumerate item}{fg=black}
+  \setbeamercolor*{enumerate subitem}{fg=black}
+  \setbeamercolor*{enumerate subsubitem}{fg=black}
+\fi
+
+% lualert (Color text and item mark)
+\newenvironment{lualertenv}{%
+  \let\sh@eae\relax
+  \only{%
+    \setbeamercolor{itemize item}{fg=lundred}%
+    \setbeamercolor{itemize subitem}{fg=lundred}%
+    \setbeamercolor{itemize subsubitem}{fg=lundred}%      
+    \setbeamercolor{enumerate item}{fg=lundred}%
+    \setbeamercolor{enumerate subitem}{fg=lundred}%
+    \setbeamercolor{enumerate subsubitem}{fg=lundred}%      
+    \alertenv%
+    \let\sh@eae\endalertenv}}{\sh@eae}
+
+
+%%%%
+
+\setbeamercolor{structure}{fg=black}
+\setbeamercolor{text in head/foot}{fg=lundgray}
+\setbeamercolor{section in head/foot}{parent=text in head/foot}
+
+\setbeamercolor*{block title}{fg=white,bg=lundbronze}
+\setbeamercolor*{block title alerted}{fg=white,bg=lundred}
+\setbeamercolor*{block title example}{fg=white,bg=lundgreen}
+
+\setbeamercolor{block body}{parent=normal text,use=block title,bg=block title.bg!10!bg}
+\setbeamercolor{block body alerted}{parent=normal text,use=block title alerted,bg=block title alerted.bg!10!bg}
+\setbeamercolor{block body example}{parent=normal text,use=block title example,bg=block title example.bg!10!bg}
+
+\setbeamercolor{section number projected}{fg=white,bg=lundbronze}
+
+\setbeamercolor*{bronze box}{fg=white,bg=lundbronze}
+\setbeamercolor*{blue box}{fg=white,bg=lunddarkblue}
+
+
+
+

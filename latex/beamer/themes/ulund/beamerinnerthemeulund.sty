@@ -1,0 +1,137 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\ProvidesPackage{beamerinnerthemeulund}
+\mode<presentation>
+
+% Color of title image (default gray)
+
+% Other title image
+\def\titleimage#1{\def\titleimage@nonlu{#1}}
+\let\titleimage@nonlu\@empty
+% Margins and stuff
+\newdimen\titleimagemargin
+\titleimagemargin=2mm
+
+
+%%%%%%%%% Options
+%% Title image
+\def\titleimagecolor#1{\def\titleimage@color{#1}}
+\titleimagecolor{gray}
+\DeclareOptionBeamer{titleimagecolor}{\titleimagecolor{#1}}% blue,darkgray,gray,green,red
+\DeclareOptionBeamer{titleimagemargin}{\titleimagemargin=#1}% Distance, recommended less than 2mm [default=2mm]
+%% Print logo in foot
+\newif\ifulund@printlogo\ulund@printlogotrue%% Default with logo in foot
+\def\ulund@footlineind{10mm}
+\DeclareOptionBeamer{footlogo}[true]{\csname ulund@printlogo#1\endcsname%
+  \ifulund@printlogo
+  \def\ulund@footlineind{10mm}
+  \else
+  \def\ulund@footlineind{0mm}
+  \fi%
+}
+%% English logo
+\newif\ifulund@english\ulund@englishtrue%% Default English
+\DeclareOptionBeamer{english}[true]{\csname ulund@english#1\endcsname}
+%% LTH logo
+\newif\ifulund@LTHlogo\ulund@LTHlogofalse%% Default LU logo
+\DeclareOptionBeamer{LTHlogo}[true]{\csname ulund@LTHlogo#1\endcsname}
+%%
+\ProcessOptionsBeamer
+
+
+%%%%%%%%% Set the path to logo
+\ifulund@english
+  \def\ulund@logopath{Pictures/lulogo-en}
+  \ifulund@LTHlogo
+    \def\ulund@displaylogopath{Pictures/LTH_Logo_en}
+    \def\ulund@displaylogoheight{60}
+    \def\ulund@displaylogoxshift{-4}
+    \def\ulund@displaylogoyshift{8}
+    \def\ulund@displaylogoscale{0.75}
+  \else
+    \def\ulund@displaylogopath{Pictures/lulogo-en}
+    \def\ulund@displaylogoheight{47}
+    \def\ulund@displaylogoxshift{0}
+    \def\ulund@displaylogoyshift{0}
+    \def\ulund@displaylogoscale{0.75}
+  \fi
+\else
+  \def\ulund@logopath{Pictures/lulogo-sv}
+  \ifulund@LTHlogo
+    \def\ulund@displaylogopath{Pictures/LTH_Logotyp_sv}
+    \def\ulund@displaylogoheight{96}
+    \def\ulund@displaylogoxshift{-16}
+    \def\ulund@displaylogoyshift{23}
+    \def\ulund@displaylogoscale{1.1}
+  \else
+    \def\ulund@displaylogopath{Pictures/lulogo-sv}
+    \def\ulund@displaylogoheight{47}
+    \def\ulund@displaylogoxshift{0}
+    \def\ulund@displaylogoyshift{0}
+    \def\ulund@displaylogoscale{0.75}
+  \fi
+\fi  
+
+
+
+%%%%%%%%
+% Make title page
+\defbeamertemplate*{title page}{ulund}[1][]{%
+  \vskip0pt plus 1filll%
+  \begin{tikzpicture}[overlay]
+    \coordinate (lowerleft) at (-1in-\oddsidemargin+\titleimagemargin,\titleimagemargin);
+    \path (lowerleft) -- +(\paperwidth-2\titleimagemargin,\paperheight-2\titleimagemargin) coordinate (upperright);
+    \coordinate (lowerright) at (lowerleft -| upperright);
+    \coordinate (upperleft) at (lowerleft |- upperright);
+    \begin{scope}
+      \clip (lowerleft) rectangle (upperright);
+      \ifx\empty\titleimage@nonlu{%
+        \node[anchor=south west,inner sep=0pt] at (lowerleft) {%
+          \includegraphics[height=\dimexpr\paperheight-2\titleimagemargin\relax]{%
+            Pictures/titlepictureLU\titleimage@color}};
+        \node[anchor=north west,inner sep=0pt] at ($(upperleft)+(0.4,-0.2)+(\ulund@displaylogoxshift pt,\ulund@displaylogoyshift pt)$) {%
+          \includegraphics[height=\ulund@displaylogoheight pt]{\ulund@displaylogopath}};%%%%%%%%%%%%%%%%%%%%%
+      }\else{% 
+        \node[anchor=south west,inner sep=0pt] at (lowerleft) {%
+          \includegraphics[height=\dimexpr\paperheight-2\titleimagemargin\relax]{%
+            \titleimage@nonlu}};
+      }\fi
+      \node[anchor=north east,
+        color=white,draw,fill=white,
+        inner sep=3mm,text width=0.55\paperwidth,% 0.63
+        xshift=1pt,
+        text=lundbronze] (titlebox) at ($(upperright)!0.2!(lowerright)$){\usebeamerfont{title}\inserttitle};
+      \node[anchor=north west,
+        color=white,draw,fill=white,
+        inner sep=3mm,text width=0.55\paperwidth,
+        yshift=2pt,
+        text=lundbronze] (authorbox) at (titlebox.south west) {\usebeamerfont{author}\insertauthor};
+      \draw[color=lundbronze,thin]($(titlebox.south west)+(3mm,0)$) -- (titlebox.south east);
+    \end{scope}
+    \node[anchor=north west,inner sep=0pt] at ($(lowerright)+(-3.85,3.3)$) {%
+      \includegraphics[width=55mm]{Pictures/lulogo-en}};
+  \end{tikzpicture}%
+  \addtocounter{framenumber}{-1}
+}
+
+\setbeamertemplate{background}{%
+  \ifulund@printlogo
+  \begin{tikzpicture}
+    \useasboundingbox (0,0) rectangle (\paperwidth,\paperheight);
+    \node[anchor=south east,inner sep=0pt] at (\paperwidth-5mm,4mm){%
+      \includegraphics[height=13mm]{\ulund@logopath}};
+  \end{tikzpicture}
+  \fi
+}
+
+%%%% Items and stuff
+% Itemize
+\setbeamertemplate{itemize item}[circle]
+\setbeamertemplate{itemize subitem}{--}
+\setbeamertemplate{itemize subsubitem}{>>}
+% Enumerate
+\setbeamertemplate{enumerate items}[default]
+\setbeamertemplate{enumerate subitems}[default]
+\setbeamertemplate{enumerate subsubitems}[default]
+
+
+

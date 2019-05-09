@@ -1,0 +1,47 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\ProvidesPackage{beamerfontthemeulund}
+
+\usefonttheme{default}
+
+%%%%%% Options
+% math serif font
+\newif\ifulund@mathseriffont\ulund@mathseriffontfalse%% Default ulund off
+\DeclareOptionBeamer{mathseriffont}[true]{\csname ulund@mathseriffont#1\endcsname}
+% Palatino, Helvetica, Garamond and Curier
+\newif\ifulund@defaultfont\ulund@defaultfontfalse
+\DeclareOptionBeamer{defaultfont}[true]{\csname ulund@defaultfont#1\endcsname}
+
+
+\ProcessOptionsBeamer
+
+%%%%%%%%%%%% Palatino as rm, Helvetica as sf, courier as tt
+\ifulund@defaultfont\else
+  \usepackage{mathpazo}
+  \usepackage[scaled=.93]{helvet}
+  \usepackage{courier}
+\fi 
+
+\mode<presentation>
+
+% If math serif font
+\ifulund@mathseriffont
+\usefonttheme[onlymath]{serif}
+\fi
+
+
+\setbeamerfont{title}{family=\rmfamily,size=\relsize{+3},series=\mdseries}
+\setbeamerfont{author}{family=\sffamily,size=\relsize{-1},series=\mdseries,shape=\scshape}
+\setbeamerfont{frametitle}{size=\relsize{+3},family=\rmfamily,series=\mdseries}
+\setbeamerfont{framesubtitle}{parent=frametitle,size=\normalsize}
+
+\setbeamerfont{footline}{size=\normalsize\relsize{-1}}
+
+% \setbeamerfont{section in toc}{series=\bfseries}
+\setbeamerfont{sidebar}{size=\tiny}
+\setbeamerfont{date}{size=\tiny}
+% \setbeamerfont{lundchaptertitle}{size=\LARGE,parent=structure}
+
+
+
+
+

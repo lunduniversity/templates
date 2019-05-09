@@ -1,0 +1,81 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\ProvidesPackage{beamerthemeulund}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Inner related
+%% title image color
+\DeclareOptionBeamer{titleimagecolor}[gray]{%
+  \PassOptionsToPackage{titleimagecolor=#1}{beamerinnerthemeulund}
+}
+%% title image margin
+\DeclareOptionBeamer{titleimagemargin}{%
+  \PassOptionsToPackage{titleimagemargin=#1}{beamerinnerthemeulund}
+}
+%% English logo (otherwise Swedish)
+\DeclareOptionBeamer{english}[true]{%
+  \PassOptionsToPackage{english=#1}{beamerinnerthemeulund}
+}
+%% Print logo 
+\DeclareOptionBeamer{footlogo}[true]{%
+  \PassOptionsToPackage{footlogo=#1}{beamerinnerthemeulund}
+}
+%% English logo (otherwise Swedish)
+\DeclareOptionBeamer{LTHlogo}[true]{%
+  \PassOptionsToPackage{LTHlogo=#1}{beamerinnerthemeulund}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Outer related
+%% navigation symbols
+\DeclareOptionBeamer{navigationsymbols}[true]{%
+  \PassOptionsToPackage{navigationsymbols=#1}{beamerouterthemeulund}
+}
+%% Footer
+\DeclareOptionBeamer{foot}[true]{%
+  \PassOptionsToPackage{foot=#1}{beamerouterthemeulund}
+}
+%% Footer
+\DeclareOptionBeamer{nofootslidenum}[true]{%
+  \PassOptionsToPackage{nofootslidenum=#1}{beamerouterthemeulund}
+}
+%% Footer
+\DeclareOptionBeamer{sectionframe}[true]{%
+  \PassOptionsToPackage{sectionframe=#1}{beamerouterthemeulund}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Font related
+%% math serif font
+\DeclareOptionBeamer{mathseriffont}[true]{%
+  \PassOptionsToPackage{mathseriffont=#1}{beamerfontthemeulund}
+}
+\DeclareOptionBeamer{defaultfont}[true]{%
+  \PassOptionsToPackage{defaultfont=#1}{beamerfontthemeulund}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Color related
+% enumeration itemmarks
+\DeclareOptionBeamer{blackenumeratenumber}[true]{%
+  \PassOptionsToPackage{blackenumeratenumber=#1}{beamercolorthemeulund}
+}
+% itemize itemmarks
+\DeclareOptionBeamer{blackitemmark}[true]{%
+  \PassOptionsToPackage{blackitemmark=#1}{beamercolorthemeulund}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Process options
+\ProcessOptionsBeamer
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Packages
+%\PassOptionsToPackage{cmyk}{xcolor}% Not needed, ok with cmyk anyway.
+\RequirePackage{tikz}
+\usetikzlibrary{calc,positioning}
+\RequirePackage{relsize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Call the other beamer packages
+\useinnertheme{ulund}
+\useoutertheme{ulund}
+\usecolortheme{ulund}
+\usefonttheme{ulund}
+
+
+
+\mode<all>
+
