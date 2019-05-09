@@ -1,4 +1,4 @@
-\documentclass[11pt,eng,LU,logoBW]{LTHletter}
+\documentclass[11pt,eng,LTH,logoBW]{ulundletter}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 %%%%%%%%%% Fonts
@@ -46,8 +46,8 @@
 \begin{document}
 %%%%
 \begin{letter}{\LaTeX\ users\\ LU / LTH}
-  \opening{About LTHletter.cls}
-  The documentclass \texttt{LTHletter.cls} is an extension to the standard \LaTeX\ class letter, adopted for the Lund University and LTH letter template. The addition the header and footer on the first letter page, and the geometry of the text. To change this, the class loads the (standard) class \texttt{letter} as well as the (standard) packages \texttt{geometry}, \texttt{graphicx}, \texttt{tikz} and \texttt{fancyhdr}. The layout is controlled by both a set options for the class, and a set of variables for the header and footer contents.
+  \opening{About ulundletter.cls}
+  The documentclass \texttt{ulundletter.cls} is an extension to the standard \LaTeX\ class letter, adopted for the Lund University and LTH letter template. The addition the header and footer on the first letter page, and the geometry of the text. To change this, the class loads the (standard) class \texttt{letter} as well as the (standard) packages \texttt{geometry}, \texttt{graphicx}, \texttt{tikz} and \texttt{fancyhdr}. The layout is controlled by both a set options for the class, and a set of variables for the header and footer contents.
 
   \section{Options}
   There are three sets of option to the class, controlling the template (LU or LTH), color and language. The two first sets only controls the appearance of the logo, while the third also changes some predefined texts in the footer, as well as the date format.
@@ -58,11 +58,11 @@
   \end{itemize}
   For example, starting the document with 
   \begin{CodeBox}{}
-\documentclass[11pt]{LTHletter}
+\documentclass[11pt]{ulundletter}
   \end{CodeBox}
   will give a Swedish, black and white logo for LU. To get an english LTH logo in color, you can change to 
   \begin{CodeBox}{}
-\documentclass[11pt,eng,LTH,logocol]{LTHletter}
+\documentclass[11pt,eng,LTH,logocol]{ulundletter}
   \end{CodeBox}
   The \texttt{11pt} sets the default font to be 11pt size, which follows the templates.
   
@@ -116,15 +116,15 @@
   If there are other issues or bugs with the class, please let me know, the contact information is in the footer on the first page. Of course, that also goes for suggestions of improvements.
 
   \section{Installation}
-  To install, save the directory \texttt{LTHletter} in the local search path. For \textbf{TeXlive} distributions the local folder can be found by entering the command
+  To install, save the directory \texttt{ulundletter} in the local search path. For \textbf{TeXlive} distributions the local folder can be found by entering the command
   \begin{CodeBox}{}
 > kpsewhich -var-value=TEXMFHOME
   \end{CodeBox}
-  This will give the location of the search directory \verb|<TEXMFHOME>|. If the directory does ot exists, then create it. Also create the path \verb|<TEXMFHOME>/tex/latex/| and save the directory \texttt{LTHletter}. For a standard installation of live tex that means the directory becomes:
+  This will give the location of the search directory \verb|<TEXMFHOME>|. If the directory does ot exists, then create it. Also create the path \verb|<TEXMFHOME>/tex/latex/| and save the directory \texttt{ulundletter}. For a standard installation of live tex that means the directory becomes:
   \begin{itemize}
-  \item MAC: \verb|~/Library/texmf/tex/latex/LTHletter/|
-  \item Linux: \verb|~/Library/texmf/tex/latex/LTHletter/|
-  \item Windows: \verb|<user>\texmf\tex\latex\LTHletter\|
+  \item MAC: \verb|~/Library/texmf/tex/latex/ulundletter/|
+  \item Linux: \verb|~/Library/texmf/tex/latex/ulundletter/|
+  \item Windows: \verb|<user>\texmf\tex\latex\ulundletter\|
   \end{itemize}
   The Windows path I am a bit uncertain about and would appreciate a confirmation.
 
@@ -140,7 +140,7 @@
   \section{Example code}
   Since the class is based on the standard class \texttt{letter.cls} it is used the same way. A basic letter without any settings can be started with the following code,
 \begin{CodeBox}{}
-\documentclass[11pt]{LTHletter}
+\documentclass[11pt]{ulundletter}
 \usepackage[utf8]{inputenc}  % To get UTF-1 coding
 \usepackage[T1]{fontenc}     %   e.g. Swedish letters
 \signature{Your Name}
@@ -156,7 +156,7 @@
   The preamble of this document is:% shown on the next page (except for the code box definition). 
  
   \begin{CodeBox}{}
-\documentclass[11pt,eng,LTH,logoBW]{LTHletter}
+\documentclass[11pt,eng,LTH,logoBW]{ulundletter}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 %%%%%%%%%% Fonts

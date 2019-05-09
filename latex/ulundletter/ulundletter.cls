@@ -1,29 +1,29 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% LTHletter.cls
+%% ulundletter.cls
 %% 
 %% by Stefan Höst
 %% 2019-05-02
 %% 
-%% The LaTeX class LTHletter.cls is a letter class for LTH. It is
-%% based on the standard class letter.cls.
+%% The LaTeX class ulundletter.cls is a letter class for Lund Unoiversity And LTH.
+%% It Is based on the standard class letter.cls.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{LTHletter}
+\ProvidesClass{ulundletter}
 %% Language
-\newif\ifLTH@english\LTH@englishfalse%% Default Swedish
-\DeclareOption{eng}{\LTH@englishtrue}
-\DeclareOption{swe}{\LTH@englishfalse}
+\newif\ifulund@english\ulund@englishfalse%% Default Swedish
+\DeclareOption{eng}{\ulund@englishtrue}
+\DeclareOption{swe}{\ulund@englishfalse}
 %%%%%%%%%%%%%%%%% Logos
 %% LU logo
-\newif\ifLTH@LUlogo\LTH@LUlogotrue%% Default LU logo
-\DeclareOption{LU}{\LTH@LUlogotrue\LTH@LTHlogofalse}
+\newif\ifulund@LUlogo\ulund@LUlogotrue%% Default LU logo
+\DeclareOption{LU}{\ulund@LUlogotrue\ulund@LTHlogofalse}
 %% LTH logo
-\newif\ifLTH@LTHlogo\LTH@LTHlogofalse
-\DeclareOption{LTH}{\LTH@LTHlogotrue\LTH@LUlogofalse}
+\newif\ifulund@LTHlogo\ulund@LTHlogofalse
+\DeclareOption{LTH}{\ulund@LTHlogotrue\ulund@LUlogofalse}
 %%%%%%%%%%%%%%%%% Colourful logo
-\newif\ifLTH@logocol\LTH@logocolfalse%% Default B/W
-\DeclareOption{logocol}{\LTH@logocoltrue}
-\DeclareOption{logoBW}{\LTH@logocolfalse}
+\newif\ifulund@logocol\ulund@logocolfalse%% Default B/W
+\DeclareOption{logocol}{\ulund@logocoltrue}
+\DeclareOption{logoBW}{\ulund@logocolfalse}
 %%%%%%%%%%%%%%%%%
 \DeclareOption*{%
   \PassOptionsToClass{\CurrentOption}{letter}
@@ -52,7 +52,7 @@
 \footrightmarg=25mm
 %%%%%%%%%%%%%%%%%%%%%%%
 %%% Define names
-\ifLTH@english
+\ifulund@english
   \def\name@address{Postal address}
   \def\name@visiting{Visiting address}
   \def\name@phone{Telephone}
@@ -102,7 +102,7 @@
   \ifcase \month \or januari\or februari\or mars\or april\or maj\or juni\or juli\or augusti\or september\or oktober\or november\or december\fi%
 }
 \def\Makedate{%
-  \ifLTH@english
+  \ifulund@english
   \monthname@eng\space\number\day, \number\year
   \else
   \number\day\space\monthname@swe, \number\year
@@ -110,69 +110,69 @@
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Set logo parameters
-% \LTH@logoxshift % xshift from logozero
-% \LTH@logoyshift % yshift from logozero
-% \LTH@logoheight % logo height
-% \LTH@logo       % logo file name
+% \ulund@logoxshift % xshift from logozero
+% \ulund@logoyshift % yshift from logozero
+% \ulund@logoheight % logo height
+% \ulund@logo       % logo file name
 %%%% ifs
-% \ifLTH@LUlogo
-% \ifLTH@LTHlogo
-% \ifLTH@logocol
-% \ifLTH@english
-\ifLTH@english%%%%%%% English
- \ifLTH@logocol%       Colorful
-   \ifLTH@LUlogo%        LU
-     \def\LTH@logoxshift{-6pt}
-     \def\LTH@logoyshift{-5pt}
-     \def\LTH@logoheight{33.5mm}
-     \def\LTH@logo{LundUniversity_C2line_PMS}
+% \ifulund@LUlogo
+% \ifulund@LTHlogo
+% \ifulund@logocol
+% \ifulund@english
+\ifulund@english%%%%%%% English
+ \ifulund@logocol%       Colorful
+   \ifulund@LUlogo%        LU
+     \def\ulund@logoxshift{-6pt}
+     \def\ulund@logoyshift{-5pt}
+     \def\ulund@logoheight{33.5mm}
+     \def\ulund@logo{LundUniversity_C2line_PMS}
    \fi
-   \ifLTH@LTHlogo%       LTH
-     \def\LTH@logoxshift{-11pt}
-     \def\LTH@logoyshift{-15pt}
-     \def\LTH@logoheight{43.5mm}
-     \def\LTH@logo{LTH_Logo_en}
+   \ifulund@LTHlogo%       LTH
+     \def\ulund@logoxshift{-11pt}
+     \def\ulund@logoyshift{-15pt}
+     \def\ulund@logoheight{43.5mm}
+     \def\ulund@logo{LTH_Logo_en}
    \fi
  \else%                B/W
-   \ifLTH@LUlogo%        LU
-     \def\LTH@logoxshift{-6pt}
-     \def\LTH@logoyshift{-5pt}
-     \def\LTH@logoheight{33.5mm}
-     \def\LTH@logo{LundUniversity_C2line_BLACK}
+   \ifulund@LUlogo%        LU
+     \def\ulund@logoxshift{-6pt}
+     \def\ulund@logoyshift{-5pt}
+     \def\ulund@logoheight{33.5mm}
+     \def\ulund@logo{LundUniversity_C2line_BLACK}
    \fi
-   \ifLTH@LTHlogo%       LTH
-     \def\LTH@logoxshift{-11pt}
-     \def\LTH@logoyshift{-15pt}
-     \def\LTH@logoheight{43.5mm}
-     \def\LTH@logo{LTH_Logo_en_BLACK}
+   \ifulund@LTHlogo%       LTH
+     \def\ulund@logoxshift{-11pt}
+     \def\ulund@logoyshift{-15pt}
+     \def\ulund@logoheight{43.5mm}
+     \def\ulund@logo{LTH_Logo_en_BLACK}
    \fi
  \fi
 \else%%%%%%%%%%%%%%%% Swedish
- \ifLTH@logocol%       Colorful
-   \ifLTH@LUlogo%        LU
-     \def\LTH@logoxshift{-5pt}
-     \def\LTH@logoyshift{-5pt}
-     \def\LTH@logoheight{33mm}
-     \def\LTH@logo{Lunds_universitet_C2r_PMS}
+ \ifulund@logocol%       Colorful
+   \ifulund@LUlogo%        LU
+     \def\ulund@logoxshift{-5pt}
+     \def\ulund@logoyshift{-5pt}
+     \def\ulund@logoheight{33mm}
+     \def\ulund@logo{Lunds_universitet_C2r_PMS}
    \fi
-   \ifLTH@LTHlogo%       LTH
-     \def\LTH@logoxshift{-38pt}
-     \def\LTH@logoyshift{-54pt}
-     \def\LTH@logoheight{69mm}
-     \def\LTH@logo{LTH_Logotyp_sv}
+   \ifulund@LTHlogo%       LTH
+     \def\ulund@logoxshift{-38pt}
+     \def\ulund@logoyshift{-54pt}
+     \def\ulund@logoheight{69mm}
+     \def\ulund@logo{LTH_Logotyp_sv}
    \fi
  \else%                B/W
-   \ifLTH@LUlogo%        LU
-     \def\LTH@logoxshift{-5pt}
-     \def\LTH@logoyshift{-5pt}
-     \def\LTH@logoheight{33mm}
-     \def\LTH@logo{Lunds_universitet_C2r_SVART}
+   \ifulund@LUlogo%        LU
+     \def\ulund@logoxshift{-5pt}
+     \def\ulund@logoyshift{-5pt}
+     \def\ulund@logoheight{33mm}
+     \def\ulund@logo{Lunds_universitet_C2r_SVART}
    \fi
-   \ifLTH@LTHlogo%       LTH
-     \def\LTH@logoxshift{-38pt}
-     \def\LTH@logoyshift{-54pt}
-     \def\LTH@logoheight{69mm}
-     \def\LTH@logo{LTH_Logotyp_sv_BLACK}
+   \ifulund@LTHlogo%       LTH
+     \def\ulund@logoxshift{-38pt}
+     \def\ulund@logoyshift{-54pt}
+     \def\ulund@logoheight{69mm}
+     \def\ulund@logo{LTH_Logotyp_sv_BLACK}
    \fi
  \fi  
 \fi
@@ -219,8 +219,8 @@
     ]
     \useasboundingbox(0,1em)-- +(0,-50mm);
     \coordinate (logoorigin) at (-\footleftmarg,-18mm);%% Left bottom of logo
-    \node[TextBox](logo) at ($(logoorigin)+(\LTH@logoxshift,\LTH@logoyshift)$) {%
-      \includegraphics[height=\LTH@logoheight]{Logos/\LTH@logo}};
+    \node[TextBox](logo) at ($(logoorigin)+(\ulund@logoxshift,\ulund@logoyshift)$) {%
+      \includegraphics[height=\ulund@logoheight]{logos/\ulund@logo}};
     %%%%% Tmp
     % \draw[fill=green] (logoorigin) circle (1pt);
     % \foreach \x in {0,1,2,3}{%
