@@ -1,0 +1,27 @@
+\documentclass[11pt,eng,LTH,logoBW]{LTHletter}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+%%%%%%%%%% Fonts
+\usepackage{mathptmx}
+%% \usepackage{mathpazo}
+\usepackage[scaled=.93]{helvet}
+\usepackage{courier}
+%%%%%%%%%% Margins
+% \raggedright
+% \parindent=15pt
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Footer
+\Address{Box 118, 22100 Lund}
+\Visiting{Ole Römers väg 3, Lund}
+\Phone{+46 46 222 4278}
+\Mobile{}
+\Fax{}
+\Email{stefan.host@eit.lth.se}
+\Web{www.eit.lth.se}
+%% Header
+% \DocumentName{}
+% \Diarienum{}
+\Department{Electrical and Information Technology}
+\Admin{Stefan Höst}
+%% Letter
+\signature{Stefan Höst}

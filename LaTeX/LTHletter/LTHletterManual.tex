@@ -1,0 +1,192 @@
+\documentclass[11pt,eng,LU,logoBW]{LTHletter}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+%%%%%%%%%% Fonts
+\usepackage{mathptmx}
+%% \usepackage{mathpazo}
+\usepackage[scaled=.93]{helvet}
+\usepackage{courier}
+%%%%%%%%%% Margins
+% \raggedright
+% \parindent=15pt
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%% Footer
+\Address{Box 118, 22100 Lund}
+\Visiting{Ole Römers väg 3, Lund}
+\Phone{+46 46 222 4278}
+\Mobile{}
+\Fax{}
+\Email{stefan.host@eit.lth.se}
+\Web{www.eit.lth.se}    
+%% Header
+% \DocumentName{}
+% \Diarienum{}
+\Department{Electrical and Information Technology}
+\Admin{Stefan Höst}
+%% Letter
+\signature{Stefan Höst}
+%%%%%%%%%%%%% Verbatim code box
+\usepackage[skins,listings]{tcolorbox}
+\tcbuselibrary{listingsutf8}
+\lstdefinestyle{CodeStyle}{basicstyle = \ttfamily}
+\newtcblisting{CodeBox}[2][]{% Only code
+  colframe=black,
+  colback=white,
+  arc=1pt,
+  boxrule=0.5pt,
+  top=0mm,bottom=0pt,left=0pt,
+  colbacktitle=gray!40,
+  coltitle=black,
+  fonttitle=\sffamily,
+  listing only,
+%%    extendedchars=false,
+%%    inputencoding=utf8,
+  title=#2,#1}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\begin{document}
+%%%%
+\begin{letter}{\LaTeX\ users\\ LU / LTH}
+  \opening{About LTHletter.cls}
+  The documentclass \texttt{LTHletter.cls} is an extension to the standard \LaTeX\ class letter, adopted for the Lund University and LTH letter template. The addition the header and footer on the first letter page, and the geometry of the text. To change this, the class loads the (standard) class \texttt{letter} as well as the (standard) packages \texttt{geometry}, \texttt{graphicx}, \texttt{tikz} and \texttt{fancyhdr}. The layout is controlled by both a set options for the class, and a set of variables for the header and footer contents.
+
+  \section{Options}
+  There are three sets of option to the class, controlling the template (LU or LTH), color and language. The two first sets only controls the appearance of the logo, while the third also changes some predefined texts in the footer, as well as the date format.
+  \begin{itemize}
+  \item The template is controlled by the options \texttt{LU} and \texttt{LTH}, where the default is \texttt{LU}. With \texttt{LU} only the lion seal is given, while with \texttt{LTH} the LTH version is used. 
+  \item The color of the logo is controlled by \texttt{logoBW} and \texttt{logocol} for black and white or color-ful logo. The default is black and white.
+  \item The language can be Swedish or English, which is controlled by the options \texttt{swe} and \texttt{eng}. The default language is Swedish. This also changes the language for the rest of the document, e.g. footer and date format.
+  \end{itemize}
+  For example, starting the document with 
+  \begin{CodeBox}{}
+\documentclass[11pt]{LTHletter}
+  \end{CodeBox}
+  will give a Swedish, black and white logo for LU. To get an english LTH logo in color, you can change to 
+  \begin{CodeBox}{}
+\documentclass[11pt,eng,LTH,logocol]{LTHletter}
+  \end{CodeBox}
+  The \texttt{11pt} sets the default font to be 11pt size, which follows the templates.
+  
+  \section{Variables}
+  In the template, both for the header and footer, there are some personalising variables that need to be set. Each of them is set by a command, wich is the text in the default setting. For the footer the following commands are used:
+  \begin{CodeBox}{}
+\Address{Address}
+\Visiting{Visiting}
+\Phone{Phone}
+\Mobile{Mobile}
+\Fax{Fax}
+\Email{Email}
+\Web{Web}    
+  \end{CodeBox}
+  \noindent In the header the following commands are used:
+  \begin{CodeBox}{}
+\DocumentName{DocumentName}
+\Diarienum{Diarienum}
+\Department{Department}
+\Admin{Admin}
+  \end{CodeBox}
+  The commands for Department and Admin is what goes under the logo. theer Admin is the person, either name, title or group. To remove any of the variables from the letter layout, set them with an empty argument. For example, to remove the Fax number set \verb|\Fax{}|. 
+
+  The date can, as usual, be changed with \verb|\date{January 1, 2030}|.
+
+  \section{Differences to the official templates}
+  I have tried to follow the official letter templates from Lund University and LTH as closely as possible. There are a couple of exceptions to this, mostly due to the differences in Word and \LaTeX:
+  \begin{itemize}
+  \item First of all, the fonts differ. The templates provided is in Word, and the font setup for Word and \LaTeX\ are completely separated. In the class file the original font setup in \TeX\ is used, i.e. Computer Modern for both rm (cmr), sf (cmss) and tt (cmtt) font. Word, on the other hand uses Times New Roman and Arial for the rm and sf fonts. The easiest way to get close to this is to load the \texttt{mathptmx} package, which sets the rm font to Times (ptm). Arial does not exist in most \LaTeX\ distributions, but normally Helvetica (phv) is used instead, which can be loaded by the \texttt{helvet} package (with a scaling factor to get the same hight as Times). Finally, it is usual to also use Courier (pcr) as the tt font, which is loaded by \texttt{courier}. So adding the following lines to your preamble should get similar fonts:
+    \begin{CodeBox}{}
+\usepackage{mathptmx}
+\usepackage[scaled=.93]{helvet}
+\usepackage{courier}
+    \end{CodeBox}
+    A variant for the rm font is to use Palatino (ppl) which can be loaded with \texttt{mathpazo}, 
+    \begin{CodeBox}{}
+\usepackage{mathpazo}
+\usepackage[scaled=.93]{helvet}
+\usepackage{courier}
+    \end{CodeBox}
+  \item The Word templates have ragged right margins, while \LaTeX\ typically has straight right margin. To get ragged right margin use \verb|\raggedright| in the preamble. Notice, that this also sets \verb|\parindent| to zero, meaning the horisontal space denoting new paragraph disappears. In the class this is set to \texttt{15pt}, which needs to be reset:
+    \begin{CodeBox}{}
+\raggedright
+\parindent=15pt
+    \end{CodeBox}
+  \item The logo size in the official LTH template is smaller than in the LU template. This has probably to do with that the LTH logo is wider than the LU logo. When only the LU logo (the lion seal) is used it is 30~mm heigh, while when the LTH text is appended to the right it is 20~mm heigh. In this template I have neglected this, and used the original LU design also for LTH. I might complement with an option for scaling the LTH logo at some point.
+  \end{itemize}
+  \section{Known issues}
+  This class is in its early stages, hopefully good enough for people to use but not flawless. One known issue is that the footer layout does not care about the amount of text that goes into it. That is, especially for the English version if all fields are used the first line with addresses and phone numbers will exceed the line-length and continue out of the page range. One way to get around this is to put all entries after each other in a box or table with predefined width. Then it can be set in as many lines as necessary. On the other hand, there is a significant risk it might also be quite ugly. I am open for other suggestions.
+
+  If there are other issues or bugs with the class, please let me know, the contact information is in the footer on the first page. Of course, that also goes for suggestions of improvements.
+
+  \section{Installation}
+  To install, save the directory \texttt{LTHletter} in the local search path. For \textbf{TeXlive} distributions the local folder can be found by entering the command
+  \begin{CodeBox}{}
+> kpsewhich -var-value=TEXMFHOME
+  \end{CodeBox}
+  This will give the location of the search directory \verb|<TEXMFHOME>|. If the directory does ot exists, then create it. Also create the path \verb|<TEXMFHOME>/tex/latex/| and save the directory \texttt{LTHletter}. For a standard installation of live tex that means the directory becomes:
+  \begin{itemize}
+  \item MAC: \verb|~/Library/texmf/tex/latex/LTHletter/|
+  \item Linux: \verb|~/Library/texmf/tex/latex/LTHletter/|
+  \item Windows: \verb|<user>\texmf\tex\latex\LTHletter\|
+  \end{itemize}
+  The Windows path I am a bit uncertain about and would appreciate a confirmation.
+
+  For \textbf{MikTeX} distribution I am unsure of where the local path is. If someone knows I will complement the description. The same goes for online tools like Oerleaf/ShareLaTeX, I will be happy to include guidance if someone can tell what to write.
+
+%%  \closing{Happy \TeX-ing,}
+%%\end{letter}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% \begin{letter}{\LaTeX\ users\\ LTH}
+%%  \opening{Example code}
+  \section{Example code}
+  Since the class is based on the standard class \texttt{letter.cls} it is used the same way. A basic letter without any settings can be started with the following code,
+\begin{CodeBox}{}
+\documentclass[11pt]{LTHletter}
+\usepackage[utf8]{inputenc}  % To get UTF-1 coding
+\usepackage[T1]{fontenc}     %   e.g. Swedish letters
+\signature{Your Name}
+\begin{document}
+\begin{letter}{To whom it may concern}
+  \opening{About the letter}
+  Text
+  \closing{Kind regards,}
+\end{letter}
+\end{document}
+\end{CodeBox}
+
+  The preamble of this document is:% shown on the next page (except for the code box definition). 
+ 
+  \begin{CodeBox}{}
+\documentclass[11pt,eng,LTH,logoBW]{LTHletter}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+%%%%%%%%%% Fonts
+\usepackage{mathptmx}
+%% \usepackage{mathpazo}
+\usepackage[scaled=.93]{helvet}
+\usepackage{courier}
+%%%%%%%%%% Margins
+% \raggedright
+% \parindent=15pt
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%% Footer
+\Address{Box 118, 22100 Lund}
+\Visiting{Ole Römers väg 3, Lund}
+\Phone{+46 46 222 4278}
+\Mobile{}
+\Fax{}
+\Email{stefan.host@eit.lth.se}
+\Web{www.eit.lth.se}    
+%% Header
+% \DocumentName{}
+% \Diarienum{}
+\Department{Electrical and Information Technology}
+\Admin{Stefan Höst}
+%% Letter
+\signature{Stefan Höst}
+\end{CodeBox}
+ 
+\closing{Happy \TeX-ing,}
+ 
+\end{letter}
+
+\end{document}
