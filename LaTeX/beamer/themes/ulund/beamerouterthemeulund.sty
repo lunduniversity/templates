@@ -1,0 +1,144 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\ProvidesPackage{beamerouterthemeulund}
+\mode<presentation>
+
+%%%%%%%%%% Options
+%% navigation symbols
+\newif\ifulund@navigationsymbols\ulund@navigationsymbolsfalse%% Default ulund off
+\DeclareOptionBeamer{navigationsymbols}[true]{\csname ulund@navigationsymbols#1\endcsname}
+%% Foot
+\newif\ifulund@foot\ulund@foottrue% Use foot
+\DeclareOptionBeamer{foot}[true]{\csname ulund@foot#1\endcsname}
+%% Keep slide num in footer even if foot=false
+\newif\ifulund@nofootslidenum\ulund@nofootslidenumfalse% Default no slide num
+\DeclareOptionBeamer{nofootslidenum}[true]{\csname ulund@nofootslidenum#1\endcsname}
+%% Use section frames
+\newif\ifulund@sectionframe\ulund@sectionframetrue% Default use section frames
+\DeclareOptionBeamer{sectionframe}[true]{\csname ulund@sectionframe#1\endcsname}
+  
+\ProcessOptionsBeamer
+
+%% Foot content: left, mid, right
+\def\ulundfootleft#1{\def\ulund@foot@left{#1}}
+\def\ulundfootmid#1{\def\ulund@foot@mid{#1}}
+\def\ulundfootright#1{\def\ulund@foot@right{#1}}
+\ulundfootleft{\insertshortauthor}
+\ulundfootmid{\insertshorttitle}
+\ulundfootright{\insertframenumber}% {\insertframenumber:\inserttotalframenumber}
+
+
+%%%%%%%%%%%%%%%%%%% Frame
+%% Title
+\defbeamertemplate*{frametitle}{ulund}[1][]
+{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=18mm]{frametitle} 
+    \begin{tikzpicture}[frametitlebox/.style={%
+        anchor=base west,
+        text=lundbronze,
+        inner sep=0pt,
+        %text width=\textwidth% Use parbox instead
+      }
+      ]
+      \useasboundingbox (0,0) rectangle(\the\paperwidth,18mm);
+      \coordinate (titlelowerleft) at (1in+\oddsidemargin,0mm);
+      \ifx\insertframesubtitle\@empty{%
+        \node[frametitlebox,yshift=3mm] at (titlelowerleft){%
+          \parbox[b]{\textwidth}{\insertframetitle}};
+      }
+      \else{%
+        \node[frametitlebox,yshift=7mm] at (titlelowerleft){%
+          \parbox[b]{\textwidth}{\insertframetitle}};
+        \node[frametitlebox,yshift=1.5mm] at (titlelowerleft){%
+          \parbox[b]{\textwidth}{\usebeamerfont{framesubtitle}\insertframesubtitle}};
+      }
+      \fi
+      \draw[color=lundbronze,thin] (titlelowerleft) -- +(\textwidth,0pt);
+    \end{tikzpicture}
+  \end{beamercolorbox}
+}
+
+%%%%%%%%%%%%%%%%%%% Frame
+%% Section
+\ifulund@sectionframe
+\AtBeginSection[]
+{
+  \begin{frame}[plain]
+    \vskip0pt plus 1filll%
+    \begin{tikzpicture}[overlay]
+      \coordinate (lowerleft) at (-1in-\oddsidemargin+\titleimagemargin,\titleimagemargin);
+      \path (lowerleft) -- +(\paperwidth-2\titleimagemargin,\paperheight-2\titleimagemargin) coordinate (upperright);
+      \coordinate (lowerright) at (lowerleft -| upperright);
+      \coordinate (upperleft) at (lowerleft |- upperright);  
+      \fill[color=lundtitle\titleimage@color] (lowerleft) rectangle (upperright);
+      \node[anchor=north west,inner sep=0pt] at ($(lowerright)+(-3.85,3.3)$) {%
+        \includegraphics[width=55mm]{Pictures/lulogo-en}};
+      \node[anchor=west,text width=0.75\paperwidth, text=lundbronze,inner sep=0pt] (sectiontitle) at ({$(lowerleft)!0.6!(upperleft)$}-|{$(lowerleft)!0.2!(lowerright)$}){\usebeamerfont{title}\insertsection};
+      \draw[color=lundbronze,thin] ($(sectiontitle.south west)+(0,-8pt)$) -- +(0.6\paperwidth,0);
+    \end{tikzpicture}
+    \addtocounter{framenumber}{-1}
+  \end{frame}
+}
+\fi
+
+%%%%%%%%%%%%%%%%%%%%%%%%% Navigation symbols in foot
+%% Navigation symbols moved to where I want
+\beamertemplatenavigationsymbolsempty% Turn off the default setting
+\def\ulund@foot@navigationsymbols{% Make new
+  \insertslidenavigationsymbol%
+  \insertframenavigationsymbol%
+  \insertsubsectionnavigationsymbol%
+  \insertsectionnavigationsymbol%
+  \insertdocnavigationsymbol%
+  \insertbackfindforwardnavigationsymbol%
+}
+
+%% Foot
+\setbeamertemplate{footline}[text line]{%
+  \begin{beamercolorbox}[wd=\dimexpr\textwidth-10mm\relax,ht=24pt]{text in head/foot}
+    \begin{tikzpicture}[x={\textwidth-\ulund@footlineind},y=24pt]
+      \useasboundingbox (0,0) rectangle (1,1);
+      \ifulund@foot{%
+        %\fill[white] (0,0) rectangle (1,1);
+        \draw[thin,color=lundbronze] (0,1)--(1,1);
+        \node[anchor=north west,inner sep=0pt] at (0,0.8){\ulund@foot@left};
+        \node[anchor=north,inner sep=0pt] at (0.5,0.8){\ulund@foot@mid};
+        \node[anchor=north east,inner sep=0pt] at (1,0.8){\ulund@foot@right};
+      }
+      \else{%
+        \ifulund@nofootslidenum{%
+          \node[anchor=north east,inner sep=0pt] at (1,0.8){\ulund@foot@right};
+        }
+        \fi
+      }
+      \fi
+      \ifulund@navigationsymbols% Navigation symbols (independent of footbox)
+      \node[anchor=south east,inner sep=0pt,yshift=2pt] at (1,0){\ulund@foot@navigationsymbols};
+      \fi
+    \end{tikzpicture}
+  \end{beamercolorbox}
+}
+
+%%%%%%%%%% Picture in column
+\newcommand\columnpicture[1]{%
+  \begin{tikzpicture}
+    \clip[use as bounding box] (0,0) rectangle (\linewidth,\textheight-18mm-2mm);
+    \node[anchor=south west,inner sep=0pt] at (0,0){\includegraphics[height=\dimexpr\textheight-18mm-2mm\relax]{#1}};
+  \end{tikzpicture}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%% End frame
+\def\endpage{%
+  \vskip0pt plus 1filll%
+  \begin{tikzpicture}[overlay]
+    \coordinate (lowerleft) at (-1in-\oddsidemargin,0);
+    \fill[color=white] (lowerleft) rectangle +(\paperwidth,\paperheight);
+    \node[anchor=center,inner sep=0pt] at ($(lowerleft)+(0.5\paperwidth,0.5\paperheight)$) {%
+      \includegraphics[height=\ulund@displaylogoscale\paperheight]{\ulund@displaylogopath}};
+  \end{tikzpicture}
+}
+
+
+
+
+
