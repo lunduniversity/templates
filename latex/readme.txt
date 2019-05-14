@@ -8,12 +8,12 @@ Texlive
 Use the command tool to get the path for the local tree:
 > kpsewhich -var-value=TEXMFHOME
 
-Standard installations gives the following values of <TEXMFHOME>
-* Windows: <User>\texmf\
-* Linux: ~/Library/texmf/
-* MAC: ~/Library/texmf/
+The trees for beamer and ulundletter should be placed under <TEXMFHOME>/tex/latex/. For standard installations that means
+* Windows: <User>\texmf\tex\latex\
+* Linux: ~/Library/texmf/tex/latex/
+* MAC: ~/Library/texmf/tex/latex/
 
-The tree here is given as the sub-tree under <TEXMFHOME>/lex/latex/. So, copy the sub-tree, or patts of it, to this location and it should work directly. 
+Then it should work. (For not too old installations you do not have to re-hash the tex engine search tree).
 
 MikTeX
 To be written
