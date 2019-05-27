@@ -20,6 +20,10 @@
 %% LTH logo
 \newif\ifulund@LTHlogo\ulund@LTHlogofalse
 \DeclareOption{LTH}{\ulund@LTHlogotrue\ulund@LUlogofalse}
+%% LTH logo scale reduction
+%% If true LTH logo has smaller height than LU logo
+\newif\ifulund@LTHlogoscale\ulund@LTHlogoscaletrue
+\DeclareOption{LTHlogonoscale}{\ulund@LTHlogoscalefalse}
 %%%%%%%%%%%%%%%%% Colourful logo
 \newif\ifulund@logocol\ulund@logocolfalse%% Default B/W
 \DeclareOption{logocol}{\ulund@logocoltrue}
@@ -110,10 +114,12 @@
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Set logo parameters
-% \ulund@logoxshift % xshift from logozero
-% \ulund@logoyshift % yshift from logozero
-% \ulund@logoheight % logo height
-% \ulund@logo       % logo file name
+% \ulund@logoxshift  % xshift from logozero
+% \ulund@logoyshift  % yshift from logozero
+% \ulund@logooriginy % Shift the logo origin in y direction. Also shifts the title
+\def\ulund@logooriginy{0mm}%% Default
+% \ulund@logoheight  % logo height
+% \ulund@logo        % logo file name
 %%%% ifs
 % \ifulund@LUlogo
 % \ifulund@LTHlogo
@@ -128,10 +134,18 @@
      \def\ulund@logo{LundUniversity_C2line_PMS}
    \fi
    \ifulund@LTHlogo%       LTH
-     \def\ulund@logoxshift{-11pt}
-     \def\ulund@logoyshift{-15pt}
-     \def\ulund@logoheight{43.5mm}
-     \def\ulund@logo{LTH_Logo_en}
+     \ifulund@LTHlogoscale%  Scale LTH logo to 3/4
+       \def\ulund@logoxshift{-8pt}
+       \def\ulund@logoyshift{-15pt}
+       \def\ulund@logooriginy{8mm}%% OK
+       \def\ulund@logoheight{32.6mm}
+       \def\ulund@logo{LTH_Logo_en}
+     \else%                  LTH logo same height as LU logo
+       \def\ulund@logoxshift{-11pt}
+       \def\ulund@logoyshift{-15pt}
+       \def\ulund@logoheight{43.5mm}
+       \def\ulund@logo{LTH_Logo_en}
+     \fi
    \fi
  \else%                B/W
    \ifulund@LUlogo%        LU
@@ -141,10 +155,18 @@
      \def\ulund@logo{LundUniversity_C2line_BLACK}
    \fi
    \ifulund@LTHlogo%       LTH
-     \def\ulund@logoxshift{-11pt}
-     \def\ulund@logoyshift{-15pt}
-     \def\ulund@logoheight{43.5mm}
-     \def\ulund@logo{LTH_Logo_en_BLACK}
+     \ifulund@LTHlogoscale%  Scale LTH logo to 3/4
+       \def\ulund@logoxshift{-8pt}
+       \def\ulund@logoyshift{-15pt}
+       \def\ulund@logooriginy{8mm}%% OK
+       \def\ulund@logoheight{32.6mm}
+       \def\ulund@logo{LTH_Logo_en_BLACK}
+     \else%                  LTH logo same height as LU logo
+       \def\ulund@logoxshift{-11pt}
+       \def\ulund@logoyshift{-15pt}
+       \def\ulund@logoheight{43.5mm}
+       \def\ulund@logo{LTH_Logo_en_BLACK}
+     \fi
    \fi
  \fi
 \else%%%%%%%%%%%%%%%% Swedish
@@ -156,10 +178,18 @@
      \def\ulund@logo{Lunds_universitet_C2r_PMS}
    \fi
    \ifulund@LTHlogo%       LTH
-     \def\ulund@logoxshift{-38pt}
-     \def\ulund@logoyshift{-54pt}
-     \def\ulund@logoheight{69mm}
-     \def\ulund@logo{LTH_Logotyp_sv}
+     \ifulund@LTHlogoscale%  Scale LTH logo to 3/4
+       \def\ulund@logoxshift{-28pt}%-38pt
+       \def\ulund@logoyshift{-45pt}%-54pt
+       \def\ulund@logooriginy{8mm}
+       \def\ulund@logoheight{51.75mm}
+       \def\ulund@logo{LTH_Logotyp_sv}
+     \else%                  LTH logo same height as LU logo
+       \def\ulund@logoxshift{-38pt}
+       \def\ulund@logoyshift{-54pt}
+       \def\ulund@logoheight{69mm}
+       \def\ulund@logo{LTH_Logotyp_sv}
+     \fi
    \fi
  \else%                B/W
    \ifulund@LUlogo%        LU
@@ -169,10 +199,18 @@
      \def\ulund@logo{Lunds_universitet_C2r_SVART}
    \fi
    \ifulund@LTHlogo%       LTH
-     \def\ulund@logoxshift{-38pt}
-     \def\ulund@logoyshift{-54pt}
-     \def\ulund@logoheight{69mm}
-     \def\ulund@logo{LTH_Logotyp_sv_BLACK}
+     \ifulund@LTHlogoscale%  Scale LTH logo to 3/4
+       \def\ulund@logoxshift{-28pt}
+       \def\ulund@logoyshift{-45pt}
+       \def\ulund@logooriginy{8mm}
+       \def\ulund@logoheight{51.75mm}
+       \def\ulund@logo{LTH_Logotyp_sv_BLACK}
+     \else%                  LTH logo same height as LU logo
+       \def\ulund@logoxshift{-38pt}
+       \def\ulund@logoyshift{-54pt}
+       \def\ulund@logoheight{69mm}
+       \def\ulund@logo{LTH_Logotyp_sv_BLACK}
+     \fi
    \fi
  \fi  
 \fi
@@ -217,18 +255,11 @@
   \begin{tikzpicture}[%
     TextBox/.style={inner sep=0pt,anchor=base west}
     ]
-    \useasboundingbox(0,1em)-- +(0,-50mm);
+    \useasboundingbox(0,1em)-- +($(0,-50mm)+(0,\ulund@logooriginy)$);
     \coordinate (logoorigin) at (-\footleftmarg,-18mm);%% Left bottom of logo
-    \node[TextBox](logo) at ($(logoorigin)+(\ulund@logoxshift,\ulund@logoyshift)$) {%
+    \node[TextBox](logo) at ($(logoorigin) +(\ulund@logoxshift,\ulund@logoyshift+\ulund@logooriginy)$) {%
       \includegraphics[height=\ulund@logoheight]{logos/\ulund@logo}};
-    %%%%% Tmp
-    % \draw[fill=green] (logoorigin) circle (1pt);
-    % \foreach \x in {0,1,2,3}{%
-    %   \draw[green]($(logoorigin)+(0,\x)$) -- +(3,0);
-    %   \draw[green]($(logoorigin)+(\x,0)$) -- +(0,3);
-    % }
-    %%%%%
-    \node[TextBox,anchor=north west](Department) at ($(logoorigin)+(0,-10mm)$){%
+    \node[TextBox,anchor=north west](Department) at ($(logoorigin)+(0,-10mm+\ulund@logooriginy)$){%
       \textsf{%
       \begin{tabular}{@{}l}
         \@department\\
