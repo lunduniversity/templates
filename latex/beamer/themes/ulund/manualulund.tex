@@ -1,6 +1,10 @@
 \documentclass[aspectratio=1610]{beamer}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
+\usepackage{iftex}
+\usepackage{pdfpages}
+\ifLuaTeX\else
+	\usepackage[utf8]{inputenc}
+	\usepackage[T1]{fontenc}
+\fi
 %%%%%%%
 % \usepackage{layout}
 % \usepackage{lipsum}
@@ -17,7 +21,7 @@
 % LTHlogo=false,             % true   / [false]  Use LTH logo instead of LU on title and end pages.
 % blackenumeratenumber=true, % [true] / false    Black enumerate numbers, o.w. Lund bronze
 % blackitemmark=false,       % true   / [false]  Black item marks, o.w. Lund bronze
-% defaultfont=false,         % true   / [false]  Falls back to default beamer fonts
+% defaultfont=palatino,      % [palatino], beamer, lu
 % sectionframe=true,
 ]{ulund}
 %%%%%%%%%%%%%%%%%%%%% Layout commands 
@@ -36,7 +40,9 @@
 %\usepackage{verbatim}
 %%%%%%%%%%%%% Verbatim code box
 \usepackage[skins,listings]{tcolorbox}
-\tcbuselibrary{listingsutf8}
+\ifLuaTeX\else
+	\tcbuselibrary{listingsutf8}
+\fi
 \lstdefinestyle{CodeStyle}{basicstyle = \ttfamily}
 \newtcblisting{CodeBox}[2][]{% Only code
   colframe=black,
@@ -92,6 +98,21 @@ Below follows:
 \end{CodeBox}
 \end{frame}
 
+%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]{LuaLaTeX support}
+	If you wish to use LuaLaTeX, for example to be able to use the university profile fonts, use the following preamble, and then compile the document with \texttt{lualatex}:
+\begin{CodeBox}{}
+\documentclass[aspectratio=1610]{beamer}
+\usetheme[defaultfont=lu]{ulund}
+\title[ulund beamer]{Test of ulund beamer template}
+\author[L. Karlsson]{%
+Linus Karlsson\newline
+Lund University}
+\begin{document}
+\end{CodeBox}
+Also, see the \texttt{defaultfont} option described below to see important information about font selection.
+\end{frame}
+
 %%%%%%%%%%%%%%%
 \begin{frame}[fragile]
   \frametitle{Options}
@@ -133,12 +154,46 @@ Below follows:
     Black enumerate numbers, otherwise Lund bronze.
   \item \verb|blackitemmark={true, [false]}|\newline
     Black item marks, otherwise Lund bronze
-  \item \verb|defaultfont={true, [false]}|\newline
-    Falls back to default beamer fonts, otherwise Palatino, Helvetica, Courier
   \item \verb|sectionframe={[true], false}|\newline
     Print section frame for each section. Color set by \verb|titleimagecolor|.
   \end{itemize}
 \end{frame}
+
+%%%%%%%%%%%%%%%
+\begin{frame}
+	\frametitle{Options (cont'd)}
+	\begin{itemize}
+		\item \texttt{defaultfont=\{[palatino], beamer, lu\}}\newline
+		Selects the default font to use. The validity of options depend on the compiler used for the \LaTeX{} document as follows:
+		\begin{itemize}
+			\item \texttt{palatino}\newline
+			Use Palatino for titles, Helvetica as sans-serif, and Courier for monospaced text. Can be used with all compilers.
+			\item \texttt{beamer}\newline
+			Use the default fonts of Beamer. Can be used with all compilers.
+			\item \texttt{lu}\newline
+			Use the Lund University profile fonts: Adobe Garamond Pro as serif font, and Frutiger Std as sans-serif. Requires LuaLaTeX, \emph{and} the fonts to be installed on your computer. Fonts can be downloaded from: \url{https://www.staff.lu.se/support-and-tools/communication-and-graphic-profile/download-templates-and-communication-tools}
+		\end{itemize}
+		See the following three pages for examples of how the different fonts look.
+	\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%
+{
+	\setbeamercolor{background canvas}{bg=}
+	\includepdf[pages=1]{page-beamer.pdf}
+}
+
+%%%%%%%%%%%%%%%
+{
+	\setbeamercolor{background canvas}{bg=}
+	\includepdf[pages=1]{page-palatino.pdf}
+}
+
+%%%%%%%%%%%%%%%
+{
+	\setbeamercolor{background canvas}{bg=}
+	\includepdf[pages=1]{page-lu.pdf}
+}
 
 %%%%%%%%%%%%%%%
 \begin{frame}[fragile]{Footer}
