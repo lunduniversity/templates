@@ -7,19 +7,45 @@
 % math serif font
 \newif\ifulund@mathseriffont\ulund@mathseriffontfalse%% Default ulund off
 \DeclareOptionBeamer{mathseriffont}[true]{\csname ulund@mathseriffont#1\endcsname}
-% Palatino, Helvetica, Garamond and Curier
-\newif\ifulund@defaultfont\ulund@defaultfontfalse
-\DeclareOptionBeamer{defaultfont}[true]{\csname ulund@defaultfont#1\endcsname}
-
+% allow to switch fonts between palatino, beamer, lu profile fonts.
+\def\beamer@ulund@defaultfont{palatino} % default palatino
+\DeclareOptionBeamer{defaultfont}[palatino]{\def\beamer@ulund@defaultfont{#1}}
 
 \ProcessOptionsBeamer
 
-%%%%%%%%%%%% Palatino as rm, Helvetica as sf, courier as tt
-\ifulund@defaultfont\else
-  \usepackage{mathpazo}
+\def\beamer@ulund@defaultfontbeamer{beamer}%
+\def\beamer@ulund@defaultfontfalse{false}%
+\def\beamer@ulund@defaultfontlu{lu}%
+\def\beamer@ulund@defaultfontpalatino{palatino}%
+
+% provide backwards compatibility with older versions of the theme where
+% defaultfont=false meant palatino, and defaultfont=true meant beamer default.
+\ifx\beamer@ulund@defaultfont\beamer@ulund@defaultfontfalse%
+	\def\beamer@ulund@defaultfont{palatino}%
+\fi%
+
+\ifx\beamer@ulund@defaultfont\beamer@ulund@defaultfontpalatino%
+  %%%%%%%%%%%% Palatino as rm, Helvetica as sf, courier as tt
+  \usepackage{newpxtext,newpxmath}
   \usepackage[scaled=.93]{helvet}
   \usepackage{courier}
-\fi 
+\fi%
+\ifx\beamer@ulund@defaultfont\beamer@ulund@defaultfontlu%
+	% use LU profile fonts Adobe Garamond and Frutiger Std.
+	% note this requires lualatex or (perhaps?) xelatex
+	\usepackage{fontspec}
+	\usepackage[garamond]{mathdesign}
+	\setmainfont[Ligatures=TeX,Numbers={Lining,Proportional}]{AGaramondPro}[
+		Extension       = .otf ,
+		UprightFont     = *-Regular ,
+		BoldFont        = *-Semibold ,
+		ItalicFont  = *-Italic ]%
+	\setsansfont[Ligatures=TeX]{FrutigerLTStd}[
+		Extension       = .otf ,
+		UprightFont     = *-Light ,
+		BoldFont        = *-Roman ,
+		ItalicFont  = *-LightItalic ]%
+\fi%
 
 \mode<presentation>
 

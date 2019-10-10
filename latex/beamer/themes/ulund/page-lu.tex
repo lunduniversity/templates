@@ -1,0 +1,43 @@
+% !TeX program = lualatex
+\documentclass[aspectratio=1610]{beamer}
+\usepackage{iftex}
+\ifLuaTeX\else
+	\usepackage[utf8]{inputenc}
+	\usepackage[T1]{fontenc}
+\fi
+%%%%%%%
+\usetheme[% Complete settings. Default value in []
+% titleimagecolor=red,       % [gray], darkgray, red, blue, green
+% titleimagemargin=2mm,      % Distance [2mm]    Frame around title page image
+% navigationsymbols=false,   % true   / [false]  Navigation symbols in the foot
+% mathseriffont=false,       % true   / [false]  Serif / non-serif math fonts
+% foot=true,                 % [true] / false    Footline or not
+% nofootslidenum=false       % true   / [false]  Keep slide num even when foot=false
+% footlogo=true,             % [true] / false    Put LU logo to the left of footer
+% english=true,              % [true] / false    English / Swedish logo
+% LTHlogo=false,             % true   / [false]  Use LTH logo instead of LU on title and end pages.
+% blackenumeratenumber=true, % [true] / false    Black enumerate numbers, o.w. Lund bronze
+% blackitemmark=false,       % true   / [false]  Black item marks, o.w. Lund bronze
+defaultfont=lu,              % [palatino], beamer, lu
+% sectionframe=true,
+]{ulund}
+\ulundfootright{}
+\begin{document}
+
+%%%%%%%%%%%%%%%
+\begin{frame}
+  \frametitle{Using lu as default font}
+  This shows an example slide where \texttt{defaultfont=lu} has been set as option to the ulund beamer theme. It will use the Lund University profile fonts, i.e., Adobe Garamond Pro as serif in headings, and Frutiger Std as sans-serif on slides.
+
+  \medskip
+  First some math
+  \begin{align}
+    f(x) &= 1 + \sum_{i=0}^{5} x \cdot \frac{5+x}{x^3}
+  \end{align}
+
+  \medskip
+  Followed by \texttt{some monospaced text.}
+\end{frame}
+
+%%%%%%%%%%%
+\end{document}
