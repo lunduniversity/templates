@@ -117,8 +117,10 @@
   \ifulund@printlogo
   \begin{tikzpicture}
     \useasboundingbox (0,0) rectangle (\paperwidth,\paperheight);
+    \ifnum\thepage>1\relax%
     \node[anchor=south east,inner sep=0pt] at (\paperwidth-5mm,4mm){%
       \includegraphics[height=13mm]{\ulund@logopath}};
+    \fi
   \end{tikzpicture}
   \fi
 }
