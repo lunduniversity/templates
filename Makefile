@@ -6,6 +6,6 @@ all: install
 
 .PHONY: install
 install:
-	mkdir --parents $(TEXMF)/tex/latex/beamer
+	mkdir -p $(TEXMF)/tex/latex/beamer
 	cp -r $(ROOT_DIR)/latex/ulundletter/ $(TEXMF)/tex/latex/
 	cp -r $(ROOT_DIR)/latex/beamer/ $(TEXMF)/tex/latex/beamer
