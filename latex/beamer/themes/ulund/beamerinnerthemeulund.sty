@@ -88,7 +88,7 @@
         \node[anchor=south west,inner sep=0pt] at (lowerleft) {%
           \includegraphics[height=\dimexpr\paperheight-2\titleimagemargin\relax]{%
             Pictures/titlepictureLU\titleimage@color}};
-        \node[anchor=north west,inner sep=0pt] at ($(upperleft)+(0.4,-0.2)+(\ulund@displaylogoxshift pt,\ulund@displaylogoyshift pt)$) {%
+        \node[anchor=north west,inner sep=0pt] at ($(upperleft)+(0.4,-0.8)+(\ulund@displaylogoxshift pt,\ulund@displaylogoyshift pt)$) {%
           \includegraphics[height=\ulund@displaylogoheight pt]{\ulund@displaylogopath}};%%%%%%%%%%%%%%%%%%%%%
       }\else{% 
         \node[anchor=south west,inner sep=0pt] at (lowerleft) {%
@@ -117,8 +117,10 @@
   \ifulund@printlogo
   \begin{tikzpicture}
     \useasboundingbox (0,0) rectangle (\paperwidth,\paperheight);
+    \ifnum\thepage>1\relax%
     \node[anchor=south east,inner sep=0pt] at (\paperwidth-5mm,4mm){%
       \includegraphics[height=13mm]{\ulund@logopath}};
+    \fi
   \end{tikzpicture}
   \fi
 }
