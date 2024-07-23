@@ -20,14 +20,20 @@
 \DeclareOptionBeamer{titleimagemargin}{\titleimagemargin=#1}% Distance, recommended less than 2mm [default=2mm]
 %% Print logo in foot
 \newif\ifulund@printlogo\ulund@printlogotrue%% Default with logo in foot
-\def\ulund@footlineind{10mm}
-\DeclareOptionBeamer{footlogo}[true]{\csname ulund@printlogo#1\endcsname%
-  \ifulund@printlogo
-  \def\ulund@footlineind{10mm}
+\DeclareOptionBeamer{footlogo}[true]{\csname ulund@printlogo#1\endcsname}
+\newif\ifulund@leftfootlogo\ulund@leftfootlogofalse
+\DeclareOptionBeamer{useleftfootlogo}[true]{\csname ulund@leftfootlogo#1\endcsname}
+
+\DeclareOptionBeamer{leftfootlogo}{%
+  \ifulund@leftfootlogo
+  \def\ulund@leftlogopath{#1}
   \else
-  \def\ulund@footlineind{0mm}
-  \fi%
+  \def\ulund@leftlogopath{Pictures/lulogo-en}
+  \fi
 }
+
+
+
 %% English logo
 \newif\ifulund@english\ulund@englishtrue%% Default English
 \DeclareOptionBeamer{english}[true]{\csname ulund@english#1\endcsname}
@@ -114,15 +120,21 @@
 }
 
 \setbeamertemplate{background}{%
-  \ifulund@printlogo
   \begin{tikzpicture}
-    \useasboundingbox (0,0) rectangle (\paperwidth,\paperheight);
     \ifnum\thepage>1\relax%
-    \node[anchor=south east,inner sep=0pt] at (\paperwidth-5mm,4mm){%
-      \includegraphics[height=13mm]{\ulund@logopath}};
+      \ifulund@printlogo
+        \useasboundingbox (0,0) rectangle (\paperwidth,\paperheight);
+        \node[anchor=south east,inner sep=0pt] at ($(current page.south east)+(-3.5mm,2mm)$) {%
+          \includegraphics[height=13mm]{\ulund@logopath}
+        };
+      \fi
+      \ifulund@leftfootlogo
+        \node[anchor=south west,inner sep=0pt] at ($(current page.south west)+(3.5mm,2mm)$) {%
+          \includegraphics[height=13mm]{\ulund@leftlogopath}
+        };
+      \fi
     \fi
   \end{tikzpicture}
-  \fi
 }
 
 %%%% Items and stuff
