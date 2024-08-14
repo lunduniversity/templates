@@ -23,6 +23,21 @@
   \PassOptionsToPackage{LTHlogo=#1}{beamerinnerthemeulund}
 }
 
+\DeclareOptionBeamer{useleftfootlogo}[false]{%
+  \PassOptionsToPackage{useleftfootlogo=#1}{beamerinnerthemeulund}
+}
+\DeclareOptionBeamer{leftfootlogo}{%
+  \PassOptionsToPackage{leftfootlogo=#1}{beamerinnerthemeulund}
+}
+
+\DeclareOptionBeamer{userightfootlogo}[false]{%
+  \PassOptionsToPackage{userightfootlogo=#1}{beamerinnerthemeulund}
+}
+\DeclareOptionBeamer{rightfootlogo}{%
+  \PassOptionsToPackage{rightfootlogo=#1}{beamerinnerthemeulund}
+}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%% Outer related
 %% navigation symbols
 \DeclareOptionBeamer{navigationsymbols}[true]{%
@@ -67,7 +82,7 @@
 %\PassOptionsToPackage{cmyk}{xcolor}% Not needed, ok with cmyk anyway.
 \RequirePackage{tikz}
 \graphicspath{{./Pictures/}}
-\usetikzlibrary{calc,positioning}
+\usetikzlibrary{calc,math,positioning}
 \RequirePackage{relsize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%% Call the other beamer packages

@@ -18,16 +18,35 @@
 \titleimagecolor{gray}
 \DeclareOptionBeamer{titleimagecolor}{\titleimagecolor{#1}}% blue,darkgray,gray,green,red
 \DeclareOptionBeamer{titleimagemargin}{\titleimagemargin=#1}% Distance, recommended less than 2mm [default=2mm]
+
+
 %% Print logo in foot
-\newif\ifulund@printlogo\ulund@printlogotrue%% Default with logo in foot
-\def\ulund@footlineind{10mm}
-\DeclareOptionBeamer{footlogo}[true]{\csname ulund@printlogo#1\endcsname%
-  \ifulund@printlogo
-  \def\ulund@footlineind{10mm}
+\newif\ifulund@leftfootlogo\ulund@leftfootlogofalse
+\DeclareOptionBeamer{useleftfootlogo}[true]{\csname ulund@leftfootlogo#1\endcsname}
+
+\DeclareOptionBeamer{leftfootlogo}{%
+  \ifulund@leftfootlogo
+  \def\ulund@leftlogopath{#1}
   \else
-  \def\ulund@footlineind{0mm}
-  \fi%
+  \def\ulund@leftlogopath{Pictures/lugogo-sv}
+  \fi
 }
+
+\newif\ifulund@rightfootlogo\ulund@rightfootlogofalse
+\DeclareOptionBeamer{userightfootlogo}[true]{\csname ulund@rightfootlogo#1\endcsname}
+
+\DeclareOptionBeamer{rightfootlogo}{%
+  \ifulund@rightfootlogo
+  \def\ulund@rightlogopath{#1}
+  \else
+  \def\ulund@rightlogopath{Pictures/lulogo-en}
+  \fi
+}
+
+%% Footer logo
+\newif\ifulund@printlogo\ulund@printlogotrue %% Defaults to logo in foot.
+\DeclareOptionBeamer{footlogo}[true]{\csname ulund@printlogo#1\endcsname}
+
 %% English logo
 \newif\ifulund@english\ulund@englishtrue%% Default English
 \DeclareOptionBeamer{english}[true]{\csname ulund@english#1\endcsname}
@@ -40,7 +59,6 @@
 
 %%%%%%%%% Set the path to logo
 \ifulund@english
-  \def\ulund@logopath{Pictures/lulogo-en}
   \ifulund@LTHlogo
     \def\ulund@displaylogopath{Pictures/LTH_Logo_en}
     \def\ulund@displaylogoheight{60}
@@ -55,7 +73,6 @@
     \def\ulund@displaylogoscale{0.75}
   \fi
 \else
-  \def\ulund@logopath{Pictures/lulogo-sv}
   \ifulund@LTHlogo
     \def\ulund@displaylogopath{Pictures/LTH_Logotyp_sv}
     \def\ulund@displaylogoheight{96}
@@ -69,8 +86,22 @@
     \def\ulund@displaylogoyshift{0}
     \def\ulund@displaylogoscale{0.75}
   \fi
-\fi  
+\fi
 
+
+%% Set Paths for the footer logo to be backwards compatible.
+\ifulund@rightfootlogo
+  % Do nothing: We assume a logo has been set.
+\else
+  \ifulund@english
+    \def\ulund@rightlogopath{Pictures/lulogo-en}
+  \else
+    \def\ulund@rightlogopath{Pictures/lulogo-sv}
+  \fi
+  \ifulund@printlogo
+    \newif\ifulund@rightfootlogo\ulund@rightfootlogotrue
+  \fi
+\fi
 
 
 %%%%%%%%
@@ -114,15 +145,21 @@
 }
 
 \setbeamertemplate{background}{%
-  \ifulund@printlogo
   \begin{tikzpicture}
-    \useasboundingbox (0,0) rectangle (\paperwidth,\paperheight);
     \ifnum\thepage>1\relax%
-    \node[anchor=south east,inner sep=0pt] at (\paperwidth-5mm,4mm){%
-      \includegraphics[height=13mm]{\ulund@logopath}};
+      \ifulund@rightfootlogo
+        \useasboundingbox (0,0) rectangle (\paperwidth,\paperheight);
+        \node[anchor=south east,inner sep=0pt] at ($(current page.south east)+(-3.5mm,2mm)$) {%
+          \includegraphics[height=13mm]{\ulund@rightlogopath}
+        };
+      \fi
+      \ifulund@leftfootlogo
+        \node[anchor=south west,inner sep=0pt] at ($(current page.south west)+(3.5mm,2mm)$) {%
+          \includegraphics[height=13mm]{\ulund@leftlogopath}
+        };
+      \fi
     \fi
   \end{tikzpicture}
-  \fi
 }
 
 %%%% Items and stuff
