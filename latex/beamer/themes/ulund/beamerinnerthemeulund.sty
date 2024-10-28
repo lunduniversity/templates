@@ -172,5 +172,12 @@
 \setbeamertemplate{enumerate subitems}[default]
 \setbeamertemplate{enumerate subsubitems}[default]
 
-
-
+% Center footnotes to avoid clipping the left and/or right footer logos.
+\setbeamertemplate{footnote}{%
+  \hspace*{\fill}%
+  \begin{minipage}{0.875\textwidth}%
+    \parindent1em\noindent%
+    \noindent\insertfootnotemark\insertfootnotetext\\%
+  \end{minipage}%
+  \hspace*{\fill}%
+}%
