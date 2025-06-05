@@ -144,6 +144,9 @@
   \addtocounter{framenumber}{-1}
 }
 
+% Adjust \maketitle to use the plain style for the frame
+\def\maketitle{\ifbeamer@inframe\titlepage\else\frame[plain]{\titlepage}\fi}
+
 \setbeamertemplate{background}{%
   \begin{tikzpicture}
     \ifnum\thepage>1\relax%
